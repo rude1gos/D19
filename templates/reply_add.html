@@ -1,0 +1,42 @@
+{% extends 'default.html' %}
+
+{% load custom_tags %}
+
+{% block title %}
+All news
+{% endblock title %}
+
+
+
+<!-- Добавление отклика на обьявление -->
+{% block content %}
+<div class="col-lg-10">
+    <img class="img-fluid" src="" alt="">
+    <h1 class="text-white add-letter-space mt-4">{{ news.title}}</h1>
+    <ul class="post-meta mt-3 mb-4">
+        <li class="d-inline-block mr-3">
+            <span class="fas fa-clock text-primary"></span>
+            <a class="ml-1" href="#">{{ news.date_time_in }}</a>
+        </li>
+        <li class="d-inline-block">
+            <span class="fas fa-list-alt text-primary"></span>
+            <a class="ml-1" href="#">{{ news.category }}</a>
+        </li>
+        <li class="d-inline-block">
+            <span class="fas fa-list-alt text-primary"></span>
+            <a class="ml-1" href="#">{{ news.author }}</a>
+        </li>
+    </ul>
+    <p>{{ news.text }}</p>
+
+    <h3 class="text-white add-letter-space mt-4">Отклик</h3>
+        <div class="col-lg-7">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Save" />
+
+            </form>
+        </div>
+</div>
+{% endblock content %}

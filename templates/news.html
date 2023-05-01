@@ -1,0 +1,58 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'default.html' %}
+
+{% load custom_tags %}
+
+<!-- Название у нас будет Post -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим саму статью, идентификатор которой был передан в url -->
+{% block content %}
+{% load static %}
+<div class="col-lg-10">
+    <a class="text-white opacity-75-onHover" href="/board/">Вернуться к обьявлениям.</a>
+    <img class="img-fluid" src="" alt="">
+    <h1 class="text-white add-letter-space mt-4">{{ news.title}}</h1>
+    <ul class="post-meta mt-3 mb-4">
+        <li class="d-inline-block mr-3">
+            <span class="fas fa-clock text-primary"></span>
+            <a class="ml-1" href="#">{{ news.date_time_in }}</a>
+        </li>
+        <li class="d-inline-block">
+            <span class="fas fa-list-alt text-primary"></span>
+            <a class="ml-1" href="#">{{ news.category }}</a>
+        </li>
+        <li class="d-inline-block">
+            <span class="fas fa-list-alt text-primary"></span>
+            <a class="ml-1" href="#">{{ news.author }}</a>
+        </li>
+    </ul>
+    <p>{{ news.wysiwyn_text|safe }}</p>
+    <ul class="post-meta mt-3 mb-4">
+        <li class="d-inline-block mr-3">
+            <span class="fas fa-clock text-primary"></span>
+            <a class="ml-1" href="{{ news.id }}/reply/add">Добавить отклик</a>
+        </li>
+    </ul>
+
+    {% if replys %}
+    <h3 class="text-white add-letter-space mt-4">Отклики</h3>
+        {% for reply in replys %}
+            <ul class="post-meta mt-3 mb-4">
+            <li class="d-inline-block mr-3">
+                <span class="fas fa-clock text-primary"></span>
+                <a class="ml-1" href="#">{{ reply.date_time_in }}</a>
+            </li>
+            <li class="d-inline-block">
+                <span class="fas fa-list-alt text-primary"></span>
+                <a class="ml-1" href="#">{{ reply.user }}</a>
+            </li>
+        </ul>
+        <p>{{ reply.reply }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock content %}
